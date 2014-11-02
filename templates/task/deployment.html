@@ -1,0 +1,54 @@
+<div class="alert alert-{{ deployment.status }}">
+     <div class='row'>
+        <div class='col-lg-4 text-left'>
+            <a href="{{ url_for('tasks.deployed_task', task_id=deployment.id) }}">
+                <strong>#{{ deployment.id }} - {{ deployment.status }}</strong>
+            </a>
+        </div>
+     </div>
+     <div class='row'>
+        <div class='col-lg-4 text-left'>
+            <ul class='list-unstyled'>
+                <li>
+                    <strong>Task: <a href="{{ url_for('tasks.view_task', task_id=deployment.task) }}">
+                        {{ deployment.task }}</a>
+                    </strong>
+                </li>
+
+                <li>
+                    <strong>User: </strong> {{ deployment.user }}
+                </li>
+            </ul>
+        </div>
+        <div class='col-lg-4 text-left'>
+            <ul class='list-unstyled'>
+                <li>
+                    <strong>Started at:</strong> {{ deployment.sdate }}
+                </li>
+                <li>
+                    <strong>Finished at:</strong> {{ deployment.fdate }}
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            {% if deployment.status != 'danger' %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% else %}
+                <span class="glyphicon glyphicon-remove"></span>
+            {% endif %}
+        </div>
+     </div>
+     <div class="row">
+         <div class="col-lg-12 text-left">
+            <strong> Hosts: </strong> {% for role in deployment.roles %} {{ role }}, {% endfor %}
+        </div>
+     </div>
+    {% if full %}
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h3>Logged output:</h3>
+                <pre>{{ deployment.data }}</pre>
+            </div>
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} | Nipsy</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style>
+        .navbar-inverse .navbar-nav > li > a {
+            color: #983;
+        }
+        body { padding-top: 70px; }
+        .panel-primary {
+            border-color: #333;
+        }
+        .panel-primary > .panel-heading {
+            background-image: linear-gradient(to bottom, #333 0px, #555 100%);
+            background-repeat: repeat-x;
+        }
+        h4, .h4, h5, .h5, h6, .h6 {
+            margin-left: 10px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  </head>
+
+<body>
+
+    {% block nav %}{% endblock %}
+    {% block body %}{% endblock %}
+
+    <script>
+        function settings() {
+            $.ajax({
+                url: "/settings",
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $.each(response, function (key, data) {
+                        $( "#" + key ).remove();
+                        $( "#settings_div" ).append(
+                            '<h4 id="' + key +'">' + key + ":    <small>"+ data + '</small></h4>');
+                    })
+                }
+            });
+        }
+        $( document ).ready(settings());
+    </script>
+
+</body>
+</html>

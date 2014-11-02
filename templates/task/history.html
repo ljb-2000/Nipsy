@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% block title %} Deployed tasks{% endblock %}
+{% block main %}
+    <div class="col-lg-9 text-center">
+        {% if not deployments or deployments.count() == 0 %}
+            <h3 class='alert'>
+                No available deployments.
+            </h3>
+        {% else %}
+                <ul class='list-unstyled list-inline'>
+                    <li><h1>Deploy history</h1></li>
+                </ul>
+                <hr />
+                <ul class='list-unstyled'>
+                    {% for deployment in deployments %}
+                        <li>{% include 'task/deployment.html' %}</li>
+                    {%  endfor %}
+                </ul>
+        {% endif %}
+    </div>
+{% endblock %}

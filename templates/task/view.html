@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block title %}Available Task List{% endblock %}
+{% block main %}
+    <div class="col-lg-9 text-center"><h2>Total available tasks: {{ task_len }}</h2></div>
+    <div class="col-lg-9 text-left">
+        {% if not tasks %}
+            <h4 class='alert'>
+                No available tasks.
+            </h4>
+        {% else %}
+
+            {% for task in tasks.items() %}
+                <h4>
+                    <a href="{{ url_for('tasks.view_task', task_id=task[0]) }}">{{ task[0] }}</a>
+                    <small>{{ task[1].__doc__ or ' Empty description ' }}</small>
+                </h4>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

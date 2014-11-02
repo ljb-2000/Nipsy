@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% block title %}Task: {{ task.name }}{% endblock %}
+{% block main %}
+    <div class="col-lg-6 text-left">
+        <h3>
+            <a href="{{ url_for('tasks.view_task', task_id=task.name) }}">{{ task.name }}</a>
+            <small>{{ task.description or ' Empty description ' }}</small>
+        </h3>
+    </div>
+    <div class="col-lg-3">
+        <a href="{{ url_for('tasks.execute_task', task_id=task.name) }}" type="button" class="btn btn-primary btn-lg"
+            {% if not task.roles or not task.source %}
+                disabled="disabled"
+            {% else %}
+                id="execute"
+            {% endif %}>
+            <span class="glyphicon glyphicon-play"></span> Run
+        </a>
+    </div>
+    <div class="col-lg-9">
+        <h4>Roles: </h4><pre>{{ task.roles }}</pre>
+    </div>
+    <div class="col-lg-9 text-left">
+        <h3> Source code: </h3><br>
+        <pre>{{ task.source or ' Empty method ' }}</pre>
+    </div>
+{% endblock %}
