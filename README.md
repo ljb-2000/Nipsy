@@ -3,4 +3,8 @@ Nipsy
 
 Nipsy flask based interface for your fabric deployments.
 
-#fabric #flask
+
+Screenshots
+-----------
+.. image:: http://i.imgur.com/YITYwWB.png
+
