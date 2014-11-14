@@ -6,7 +6,6 @@ from flask import (Blueprint, Response, render_template, request, g, redirect, j
 
 # for json-tokens authorization
 # import jwt
-# _secret = 'NJ5CXRp5B8J8TPN3faQs7Xdb'
 tasks = Blueprint('tasks', __name__, url_prefix='/tasks')
 
 
@@ -23,22 +22,9 @@ def execute_task(task_id):
 
     sys.stdout = output
     sys.stderr = error
-    token = request.cookies.get('accessToken')
-    if not token:
-        return jsonify({'status': 'Fuck you, Spilberg'})
-    data = jwt.decode(token, _secret)
-    user_name = g.db.passport.users.aggregate([
-        {'$match': {'_id': str(data.get('uid'))}},
-        {'$unwind': "$authority"},
-        {'$project':
-            {'name': {'$concat': [
-                "$authority.first_name",
-                " ",
-                "$authority.last_name"
-            ]}}}
-    ])['result']
-    if not user_name:
-        return jsonify({'status': 'Wahh?'})
+    # todo
+    # username
+    user_name = 'sohje'
     sdate = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
     execute(task)
     sys.stdout = sys.__stdout__
@@ -52,7 +38,7 @@ def execute_task(task_id):
         )['seq'],
         'fdate': datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
         'sdate': sdate,
-        'user': user_name[0]['name'],
+        'user': user_name,
         # TODO
         # generate status
         'status': 'success',
