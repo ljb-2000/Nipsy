@@ -8,14 +8,14 @@
         </h3>
     </div>
     <div class="col-lg-3">
-        <a href="{{ url_for('tasks.execute_task', task_id=task.name) }}" type="button" class="btn btn-primary btn-lg"
+        <button type="button" class="btn btn-primary btn-lg" data-loading-text="Running..."
             {% if not task.roles or not task.source %}
                 disabled="disabled"
             {% else %}
                 id="execute"
             {% endif %}>
             <span class="glyphicon glyphicon-play"></span> Run
-        </a>
+        </button>
     </div>
     <div class="col-lg-9">
         <h4>Roles: </h4><pre>{{ task.roles }}</pre>
@@ -24,4 +24,18 @@
         <h3> Source code: </h3><br>
         <pre>{{ task.source or ' Empty method ' }}</pre>
     </div>
+    <script type="text/javascript">
+        $('button').click(function() {
+            $(this).button('loading');
+            $.ajax({
+                url: "{{ url_for('tasks.execute_task', task_id=task.name) }}",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    window.location = response.deployment;
+                }
+            });
+        });
+    </script>
 {% endblock %}

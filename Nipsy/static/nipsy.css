@@ -1,0 +1,13 @@
+.navbar-inverse .navbar-nav > li > a {
+    color: #983;
+}
+body { padding-top: 70px; }
+.panel-primary {
+    border-color: #333;
+}
+.panel-primary > .panel-heading {
+    background: linear-gradient(to bottom, #333 0px, #555 100%) repeat-x;
+}
+h4, .h4, h5, .h5, h6, .h6 {
+    margin-left: 10px;
+}

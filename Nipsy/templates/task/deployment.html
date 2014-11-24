@@ -1,4 +1,4 @@
-<div class="alert alert-{{ deployment.status }}">
+<div class="alert alert-{{ deployment.status }}" id="{{ deployment.id }}">
      <div class='row'>
         <div class='col-lg-4 text-left'>
             <a href="{{ url_for('tasks.deployed_task', task_id=deployment.id) }}">

@@ -1,19 +1,32 @@
 __author__ = 'sohje'
 
 from fabric.api import task, env, roles, run, settings, sudo
+import time
 
 env.roledefs = {
+    'bb-view': ['192.168.100.11', '192.168.100.12'],
     'bb2-w3': [
         '192.168.22.101', '192.168.5.102', '192.168.8.103', '192.168.231.104',
         '192.168.31.111', '192.168.6.112', '192.168.9.121', '192.168.231.122',
         '192.168.4.131', '192.168.231.132'
     ],
+    'bb2-ha': ['10.0.0.99'],
     'blackbox-1': ['10.0.4.23', '10.0.3.23', '10.0.5.25', '10.0.5.26'],
     'blackbox-2': ['10.0.4.22', '10.0.3.12', '10.0.5.23', '10.0.5.28'],
     'blackbox-3': ['10.0.4.29', '10.0.3.24', '10.0.5.254', '10.0.5.24'],
-    'dns': ['10.0.1.1', '10.0.2.13'],
+    'dns': ['10.0.2.132', '10.0.1.133'],
     'ip-test': ['10.10.40.19'],
 }
+
+def deploy_be(revision='HEAD'):
+    """ Update all bb2 w3 """
+    with settings(warn_only=True, sudo_user="sohje"):
+        sudo('uptime')
+
+@roles('bb2-ha')
+@task
+def deploy_bb2():
+    run('uptime')
 
 @roles('bb2-w3')
 @task
@@ -65,5 +78,6 @@ def nipsy():
     """
         Uptime and kernel version on DNS servers
     """
+    time.sleep(2)
     run('uname -a')
     run('uptime')

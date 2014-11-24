@@ -1,7 +1,11 @@
 __author__ = 'sohje'
 
+# server
+HOST = '127.0.0.1'
+PORT = 5000
+
 # fabric file path
-fabfile = './fabfile.py'
+fabfile = '/Users/sohje/PycharmProjects/Nipsy/Nipsy/fabfile.py'
 
 # ssh user and key
 user = 'sohje'
